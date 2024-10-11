@@ -4,6 +4,7 @@ from dateutil import parser
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
+import datetime as dt
 
 path = os.getcwd()
 
@@ -46,15 +47,15 @@ mask[np.triu_indices_from(mask)] = True
 
 # Set up the matplotlib figure
 f, ax = plt.subplots(figsize=(18, 15))
-f.suptitle("Correlation Matrix", fontsize = 40)
+#f.suptitle("Correlation Matrix", fontsize = 40)
 
 # Generate a custom diverging colormap
 cmap = sns.diverging_palette(220, 10, as_cmap=True)
 
 # Draw the heatmap with the mask and correct aspect ratio
-heatmap = sns.heatmap(corr, mask=mask, cmap=cmap, vmax=.3, center=0, square=True, linewidths=.5, cbar_kws={"shrink": .5})
-heatmap_fig = heatmap.get_figure()
-heatmap_fig.savefig(path + '/figures/heatmap.png')
+# heatmap = sns.heatmap(corr, mask=mask, cmap=cmap, vmax=.3, center=0, square=True, linewidths=.5, cbar_kws={"shrink": .5})
+# heatmap_fig = heatmap.get_figure()
+# heatmap_fig.savefig(path + '/figures/heatmap.png')
 
 
 ## Adjusting features
@@ -63,3 +64,10 @@ heatmap_fig.savefig(path + '/figures/heatmap.png')
 df["first_open"] = [parser.parse(row_date) for row_date in df["first_open"]]
 df["enrolled_date"] = [parser.parse(row_date) if isinstance(row_date, str) else row_date for row_date in df["enrolled_date"]]
 print(df.dtypes)
+
+
+# Selecting Time For Response
+df["difference"] = (df.enrolled_date - df.first_open) / np.timedelta64(1, 'h')
+response_hist = plt.hist(df["difference"].dropna(), color='#3F5D7D')
+plt.title('Distribution of Time-Since-Screen-Reached')
+plt.savefig(path + '/figures/hist_time.png')
