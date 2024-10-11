@@ -42,3 +42,16 @@ corr = df_plot.corr()
 
 mask = np.zeros_like(corr, dtype=bool)
 mask[np.triu_indices_from(mask)] = True
+
+
+# Set up the matplotlib figure
+f, ax = plt.subplots(figsize=(18, 15))
+f.suptitle("Correlation Matrix", fontsize = 40)
+
+# Generate a custom diverging colormap
+cmap = sns.diverging_palette(220, 10, as_cmap=True)
+
+# Draw the heatmap with the mask and correct aspect ratio
+heatmap = sns.heatmap(corr, mask=mask, cmap=cmap, vmax=.3, center=0, square=True, linewidths=.5, cbar_kws={"shrink": .5})
+heatmap_fig = heatmap.get_figure()
+heatmap_fig.savefig(path + '/figures/heatmap.png')
