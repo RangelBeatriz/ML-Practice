@@ -39,4 +39,6 @@ data_fig = df_plot.corrwith(df.enrolled).plot.bar(figsize=(20,10),title = 'Corre
 data_fig.figure.savefig(path + '/figures/corr_plot.png')
 
 corr = df_plot.corr()
-print(corr)
+
+mask = np.zeros_like(corr, dtype=bool)
+mask[np.triu_indices_from(mask)] = True
