@@ -37,3 +37,6 @@ plt.savefig(path + '/figures/app_data_hist.png')
 #Comment code above to generate the corr_figure
 data_fig = df_plot.corrwith(df.enrolled).plot.bar(figsize=(20,10),title = 'Correlation with Response variable', fontsize = 15, rot = 45, grid = True)
 data_fig.figure.savefig(path + '/figures/corr_plot.png')
+
+corr = df_plot.corr()
+print(corr)
