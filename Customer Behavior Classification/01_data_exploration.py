@@ -55,3 +55,12 @@ cmap = sns.diverging_palette(220, 10, as_cmap=True)
 heatmap = sns.heatmap(corr, mask=mask, cmap=cmap, vmax=.3, center=0, square=True, linewidths=.5, cbar_kws={"shrink": .5})
 heatmap_fig = heatmap.get_figure()
 heatmap_fig.savefig(path + '/figures/heatmap.png')
+
+
+## Adjusting features
+
+# Formatting Date Columns
+df.dtypes
+df["first_open"] = [parser.parse(row_date) for row_date in df["first_open"]]
+df["enrolled_date"] = [parser.parse(row_date) if isinstance(row_date, str) else row_date for row_date in df["enrolled_date"]]
+print(df.dtypes)
