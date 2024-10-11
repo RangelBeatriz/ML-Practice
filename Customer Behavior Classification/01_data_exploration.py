@@ -60,7 +60,6 @@ heatmap_fig.savefig(path + '/figures/heatmap.png')
 ## Adjusting features
 
 # Formatting Date Columns
-df.dtypes
 df["first_open"] = [parser.parse(row_date) for row_date in df["first_open"]]
 df["enrolled_date"] = [parser.parse(row_date) if isinstance(row_date, str) else row_date for row_date in df["enrolled_date"]]
 print(df.dtypes)
