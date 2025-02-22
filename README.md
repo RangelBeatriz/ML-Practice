@@ -1,2 +1,2 @@
 # Practical-ML
-Projects from the course on Practical Machine Learning
+Practice Machine Learning Projects
